@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Main extends JFrame {
+    private final String[] topPanelText = {"TO DO", "DO TODAY", "ONGOING"};
+    private final Color[] priorityLevels = {Color.green, Color.yellow, Color.red};
     public Main() {
         initComponents();
     }
@@ -18,33 +20,25 @@ public class Main extends JFrame {
         setLocationRelativeTo(null);
         //set parameters of elements
         //set parameters of panels and add to main panel
-        topPanels.add(new JPanel());
-        topPanels.get(0).setLayout(new BoxLayout(topPanels.get(0), BoxLayout.Y_AXIS));
-        topPanels.get(0).setPreferredSize(new Dimension(194, 60));
-        topPanels.get(0).setBorder(BorderFactory.createLineBorder(Color.gray));
-        topPanels.get(0).add(alignedJLabel("TO DO"));
-        toDoButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        topPanels.get(0).add(toDoButton);
-        mainPanel.add(topPanels.get(0));
-        topPanels.add(new JPanel());
-        topPanels.get(1).setPreferredSize(new Dimension(194, 60));
-        topPanels.get(1).setBorder(BorderFactory.createLineBorder(Color.gray));
-        topPanels.get(1).add(alignedJLabel("DO TODAY"));
-        mainPanel.add(topPanels.get(1));
-        topPanels.add(new JPanel());
-        topPanels.get(2).setPreferredSize(new Dimension(194, 60));
-        topPanels.get(2).setBorder(BorderFactory.createLineBorder(Color.gray));
-        topPanels.get(2).add(alignedJLabel("ONGOING"));
-        mainPanel.add(topPanels.get(2));
+        topMenu.setPreferredSize(new Dimension(600, 20));
+        addMenu.add("Add task");
+        topMenu.add(addMenu);
+        //mainPanel.add(topMenu);
+        for (int i = 0; i < 3; i++) {
+            topPanels.add(new JPanel());
+            topPanels.get(i).setLayout(new BoxLayout(topPanels.get(i), BoxLayout.Y_AXIS));
+            topPanels.get(i).setPreferredSize(new Dimension(194, 20));
+            topPanels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+            topPanels.get(i).add(alignedJLabel(topPanelText[i]));
+            mainPanel.add(topPanels.get(i));
+        }
         for (int i = 0; i < 3; i++) {
             taskPanels.add(new JPanel());
             taskPanels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
             taskPanels.get(i).setPreferredSize(new Dimension(194, 525));
-            taskPanels.get(i).add(new Task("TEST TASK", "a test task", i));
             mainPanel.add(taskPanels.get(i));
         }
         //add everything together, don't set mainPanel layout as it is flowlayout by default
-
         add(mainPanel);
     }
     public JLabel alignedJLabel(String text) {
@@ -62,8 +56,10 @@ public class Main extends JFrame {
         });
     }
     //variable declarations
-    private JPanel mainPanel = new JPanel();
+    private FlowLayout mainLayout = new FlowLayout(FlowLayout.CENTER, 5, 5);
+    private JPanel mainPanel = new JPanel(mainLayout);
     private ArrayList<JPanel> taskPanels = new ArrayList<JPanel>();
     private ArrayList<JPanel> topPanels = new ArrayList<JPanel>();
-    private JButton toDoButton = new JButton("add");
+    private JMenuBar topMenu = new JMenuBar();
+    private JMenu addMenu = new JMenu("Add");
 }
