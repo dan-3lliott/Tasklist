@@ -13,6 +13,8 @@ public class Task extends JPanel {
         this.status = status;
         this.priority = priority;
         this.setPreferredSize(new Dimension (180, 60));
-        this.setBorder(BorderFactory.createLineBorder(priority));
+        this.setBorder(BorderFactory.createLineBorder(this.priority));
+        this.add(new JLabel(title));
+        this.add(new JLabel(description));
     }
 }
