@@ -17,4 +17,7 @@ public class Task extends JPanel {
         this.add(new JLabel(title));
         this.add(new JLabel(description));
     }
+    public int getStatus() {
+        return status;
+    }
 }

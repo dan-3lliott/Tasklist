@@ -18,10 +18,12 @@ public class Main extends JFrame {
         });
         confirmTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                taskDialog.dispose();
                 tasks.add(new Task("test task", "test description", statusBox.getSelectedIndex(), priorityLevels[priorityBox.getSelectedIndex()]));
                 statusBox.setSelectedIndex(0);
                 priorityBox.setSelectedIndex(0);
+                taskDialog.dispose();
+                System.out.println(tasks.size());
+                updateTasks();
             }
         });
         //set up main jframe
@@ -47,6 +49,22 @@ public class Main extends JFrame {
         addMenu.add(addTask);
         topMenu.add(addMenu);
         mainPanel.add(topMenu);
+        updatePanels();
+        updateTasks();
+        //add everything together, don't set mainPanel layout as it is flowlayout by default
+        add(mainPanel);
+    }
+    public void updateTasks() {
+        for (int i = 0; i < taskPanels.size(); i++) {
+            for (Task t : tasks) {
+                if (t.getStatus() == i) {
+                    taskPanels.get(i).add(t);
+                }
+            }
+        }
+        mainPanel.revalidate();
+    }
+    public void updatePanels() {
         for (int i = 0; i < 3; i++) {
             topPanels.add(new JPanel());
             topPanels.get(i).setLayout(new BoxLayout(topPanels.get(i), BoxLayout.Y_AXIS));
@@ -59,13 +77,8 @@ public class Main extends JFrame {
             taskPanels.add(new JPanel());
             taskPanels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
             taskPanels.get(i).setPreferredSize(new Dimension(194, 525));
-            for (Task t : tasks) {
-                taskPanels.get(i).add(t);
-            }
             mainPanel.add(taskPanels.get(i));
         }
-        //add everything together, don't set mainPanel layout as it is flowlayout by default
-        add(mainPanel);
     }
     public JLabel alignedJLabel(String text) {
         JLabel alignedLabel = new JLabel(text);
