@@ -13,7 +13,7 @@ public class Main extends JFrame {
         //add action listeners for components
         addTask.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                TaskDialog t = new TaskDialog();
+                AddTaskDialog t = new AddTaskDialog();
                 t.setVisible(true);
             }
         });
