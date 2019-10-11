@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Main extends JFrame {
     private final String[] topPanelText = {"TO DO", "DO TODAY", "ONGOING"};
-    public final Color[] priorityLevels = {Color.green, Color.yellow, Color.red};
+    public static final Color[] priorityLevels = {Color.green, Color.yellow, Color.red};
     public Main() {
         initComponents();
     }
@@ -14,6 +14,12 @@ public class Main extends JFrame {
         addTask.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 AddTaskDialog t = new AddTaskDialog();
+                t.setVisible(true);
+            }
+        });
+        editTask.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                EditTaskDialog t = new EditTaskDialog(0);
                 t.setVisible(true);
             }
         });
@@ -28,8 +34,11 @@ public class Main extends JFrame {
         //set parameters of elements
         //set parameters of panels and add to main panel
         topMenu.setPreferredSize(new Dimension(600, 20));
+        addTask.setAccelerator(KeyStroke.getKeyStroke('A', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         addMenu.add(addTask);
+        editMenu.add(editTask);
         topMenu.add(addMenu);
+        topMenu.add(editMenu);
         mainPanel.add(topMenu);
         updatePanels();
         updateTasks();
@@ -38,6 +47,7 @@ public class Main extends JFrame {
     }
     public static void updateTasks() {
         for (int i = 0; i < taskPanels.size(); i++) {
+            taskPanels.get(i).removeAll();
             for (Task t : tasks) {
                 if (t.getStatus() == i) {
                     taskPanels.get(i).add(t);
@@ -84,4 +94,6 @@ public class Main extends JFrame {
     private JMenuBar topMenu = new JMenuBar();
     private JMenu addMenu = new JMenu("Add");
     private JMenuItem addTask = new JMenuItem("Add Task");
+    private JMenu editMenu = new JMenu("Edit");
+    private JMenuItem editTask = new JMenuItem("Edit Task");
 }

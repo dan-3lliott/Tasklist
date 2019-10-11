@@ -9,17 +9,17 @@ public class AddTaskDialog extends JFrame {
     private JTextField titleField = new JTextField(20);
     private JTextArea descriptionArea = new JTextArea(4, 20);
     private JButton confirmTaskButton = new JButton("Confirm Task");
-    private static final Color[] priorityLevels = {Color.green, Color.yellow, Color.red};
     public AddTaskDialog() {
         confirmTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                Main.tasks.add(new Task(titleField.getText(), descriptionArea.getText(), statusBox.getSelectedIndex(), priorityLevels[priorityBox.getSelectedIndex()]));
+                Main.tasks.add(new Task(titleField.getText(), descriptionArea.getText(), statusBox.getSelectedIndex(), Main.priorityLevels[priorityBox.getSelectedIndex()]));
                 statusBox.setSelectedIndex(0);
                 priorityBox.setSelectedIndex(0);
                 dispose();
                 Main.updateTasks();
             }
         });
+        setTitle("Add Task");
         setPreferredSize(new Dimension(250, 230));
         setMinimumSize(new Dimension(250, 230));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

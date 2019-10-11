@@ -26,7 +26,16 @@ public class Task extends JPanel {
         descriptionArea.setText(description);
         add(descriptionArea);
     }
+    public String getTitle() {
+        return title;
+    }
+    public String getDescription() {
+        return description;
+    }
     public int getStatus() {
         return status;
+    }
+    public Color getPriority() {
+        return priority;
     }
 }
